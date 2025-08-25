@@ -7,167 +7,228 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
+    :root {
+      --primary: #007bff;
+      --dark: #222;
+      --light: #f9f9f9;
+      --text: #333;
+      --bg: #f0f2f5;
+      --card-bg: white;
+    }
+
+    /* Dark mode variables */
+    .dark-mode {
+      --bg: #121212;
+      --text: #f0f0f0;
+      --card-bg: #1e1e1e;
+      --dark: #fff;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
       line-height: 1.7;
-      color: #333;
+      color: var(--text);
       margin: 0;
       padding: 0;
-      background-color: #f0f2f5;
+      background-color: var(--bg);
       scroll-behavior: smooth;
+      transition: background 0.3s, color 0.3s;
     }
 
-    /* Navbar */
     nav {
       position: sticky;
       top: 0;
-      background: #007bff;
-      padding: 0.8rem 2rem;
+      background: var(--card-bg);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 1000;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      z-index: 100;
+      transition: background 0.3s;
     }
+
     nav h2 {
-      color: white;
       margin: 0;
+      color: var(--primary);
     }
+
     nav ul {
       list-style: none;
       display: flex;
       gap: 1.5rem;
       margin: 0;
       padding: 0;
+      align-items: center;
     }
+
     nav ul li a {
-      color: white;
       text-decoration: none;
+      color: var(--dark);
       font-weight: 500;
       transition: color 0.3s;
     }
+
     nav ul li a:hover {
-      color: #dbe9ff;
+      color: var(--primary);
+    }
+
+    /* Dark mode toggle button */
+    .toggle-btn {
+      cursor: pointer;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      background: var(--primary);
+      color: white;
+      font-size: 0.9rem;
+      border: none;
+      transition: background 0.3s;
+    }
+    .toggle-btn:hover {
+      background: #0056b3;
     }
 
     .container {
       max-width: 1000px;
       margin: 2rem auto;
-      padding: 0 1rem;
+      padding: 2rem;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      transition: background 0.3s;
     }
 
     header {
       text-align: center;
-      padding: 4rem 1rem 2rem;
+      padding: 2rem 0;
     }
 
     header h1 {
+      margin: 0;
       font-size: 3rem;
-      color: #007bff;
-      margin-bottom: 0.5rem;
+      color: var(--primary);
+      font-weight: 600;
     }
 
     header p {
+      margin: 0.5rem 0 0;
       font-size: 1.2rem;
       color: #555;
-      font-style: italic;
+    }
+
+    .dark-mode header p {
+      color: #ccc;
     }
 
     .contact-info-header {
       margin-top: 1rem;
-      font-size: 0.95rem;
+      font-size: 0.9em;
       color: #666;
     }
     .contact-info-header a {
-      color: #007bff;
+      color: var(--primary);
       text-decoration: none;
     }
 
     section {
-      margin: 2.5rem 0;
-      padding: 2rem;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 2rem 0;
     }
 
     h2 {
-      margin-top: 0;
-      margin-bottom: 1.5rem;
-      font-size: 1.8rem;
-      color: #007bff;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 0.5rem;
-    }
-
-    .list-item {
+      color: var(--dark);
+      font-size: 2rem;
+      border-left: 5px solid var(--primary);
+      padding-left: 1rem;
       margin-bottom: 1.5rem;
     }
-    .list-item h3 {
-      margin: 0;
-      font-size: 1.4rem;
-      color: #333;
-    }
-    .list-item p {
-      margin-top: 0.5rem;
-      color: #666;
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
     }
 
-    .list-item ul {
-      margin: 0.5rem 0 0 1.5rem;
-      padding: 0;
+    .card {
+      background: var(--light);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
     }
-    .list-item ul li {
-      margin-bottom: 0.5rem;
+
+    .dark-mode .card {
+      background: #1e1e1e;
+      border: 1px solid #333;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--light);
+      border-radius: 10px;
+      padding: 1.5rem;
+      border: 1px solid #ddd;
+      transition: 0.3s;
+    }
+
+    .dark-mode .project-card {
+      background: #1e1e1e;
+      border: 1px solid #333;
+    }
+
+    .project-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
     }
 
     .button {
       display: inline-block;
+      margin-top: 1rem;
       padding: 0.6rem 1.2rem;
-      margin-top: 0.8rem;
-      background-color: #007bff;
+      background-color: var(--primary);
       color: white;
-      text-decoration: none;
       border-radius: 50px;
-      transition: 0.3s;
-      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
     }
+
     .button:hover {
-      background-color: #0056b3;
-      transform: translateY(-2px);
+      background: #0056b3;
+      transform: scale(1.05);
     }
 
     footer {
       text-align: center;
-      padding: 2rem 1rem;
-      background: #007bff;
-      color: white;
-      margin-top: 2rem;
+      padding: 2rem;
+      background: var(--card-bg);
+      margin-top: 3rem;
+      font-size: 0.9em;
+      color: #666;
+      transition: background 0.3s;
     }
 
-    /* Back to top button */
-    #backToTop {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: #007bff;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      font-size: 18px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: 0.3s;
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out;
     }
-    #backToTop:hover {
-      background: #0056b3;
+    [data-animate].active {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
+  <!-- NAVBAR -->
   <nav>
     <h2>YourName</h2>
     <ul>
@@ -175,108 +236,96 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
-      <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><button class="toggle-btn" id="toggleMode">🌙 Dark</button></li>
     </ul>
   </nav>
 
   <div class="container">
     <header>
       <h1>Your Name</h1>
-      <p>Frontend Developer | Student</p>
+      <p>Frontend Developer | Designer</p>
       <div class="contact-info-header">
-        <a href="mailto:your@email.com">your@email.com</a> | +91 98765 43210 | Your City, India
+        <a href="mailto:your@email.com">your@email.com</a> • 
+        +91 98765 43210 • Your City, India
       </div>
     </header>
 
-    <section id="about">
+    <section id="about" data-animate>
       <h2>About Me</h2>
-      <p>A passionate and driven student with a knack for creating clean and functional websites. I am currently honing my skills in HTML, CSS, and JavaScript, with a focus on building user-friendly and responsive designs.</p>
+      <p>I’m a frontend developer passionate about creating clean, responsive, and user-friendly websites. Currently building skills in modern frameworks like React and Vue, I aim to help startups and small businesses bring their ideas to life online.</p>
     </section>
 
-    <section id="skills">
+    <section id="skills" data-animate>
       <h2>Skills</h2>
-      <div class="list-item">
-        <h3>Languages & Frameworks</h3>
-        <ul>
-          <li>HTML5, CSS3, JavaScript (ES6+)</li>
-          <li>React, Angular, Vue.js</li>
-        </ul>
+      <div class="skills-grid">
+        <div class="card"><h3>Languages</h3><p>HTML, CSS, JavaScript, React</p></div>
+        <div class="card"><h3>Tools</h3><p>Git, GitHub, Netlify</p></div>
+        <div class="card"><h3>Design</h3><p>Figma, Canva</p></div>
       </div>
-      <div class="list-item">
-        <h3>Tools & Platforms</h3>
+    </section>
+
+    <section id="experience" data-animate>
+      <h2>Experience</h2>
+      <div class="card">
+        <h3>Frontend Intern</h3>
+        <p>XYZ Company | Jan 2024 - Mar 2024</p>
         <ul>
-          <li>Git, GitHub, VS Code</li>
-          <li>Netlify, Vercel</li>
-          <li>Figma, Adobe XD</li>
+          <li>Developed responsive landing pages.</li>
+          <li>Improved website performance by 20%.</li>
         </ul>
       </div>
     </section>
 
-    <section id="experience">
-      <h2>Experience & Internships</h2>
-      <div class="list-item">
-        <h3>Internship Title</h3>
-        <p>Company Name | Location | Dates</p>
-        <ul>
-          <li>Developed and maintained responsive landing pages using HTML and CSS.</li>
-          <li>Collaborated with design team to improve user experience.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="education">
-      <h2>Education</h2>
-      <div class="list-item">
-        <h3>Your Degree Name</h3>
-        <p>Your University | Graduation Year</p>
-        <ul>
-          <li>Completed a capstone project on web accessibility.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="projects">
+    <section id="projects" data-animate>
       <h2>Projects</h2>
-      <div class="list-item">
-        <h3>Project Title 1</h3>
-        <p>Short description of project.</p>
-        <a href="#" class="button">View Project</a>
-      </div>
-      <div class="list-item">
-        <h3>Project Title 2</h3>
-        <p>Short description of project.</p>
-        <a href="#" class="button">View Project</a>
+      <div class="projects">
+        <div class="project-card">
+          <h3>Portfolio Website</h3>
+          <p>A responsive personal portfolio built with HTML, CSS, JS.</p>
+          <a href="#" class="button">View Project</a>
+        </div>
+        <div class="project-card">
+          <h3>Startup Landing Page</h3>
+          <p>A modern landing page template for businesses.</p>
+          <a href="#" class="button">View Project</a>
+        </div>
       </div>
     </section>
 
-    <section id="contact">
+    <section id="contact" data-animate>
       <h2>Contact</h2>
       <p>Email: <a href="mailto:your@email.com">your@email.com</a></p>
-      <p>LinkedIn: <a href="#">linkedin.com/in/yourprofile</a></p>
       <p>Phone: +91 98765 43210</p>
+      <p>LinkedIn: <a href="#">linkedin.com/in/yourprofile</a></p>
     </section>
   </div>
 
   <footer>
-    <p>&copy; 2025 Your Name | All Rights Reserved</p>
+    <p>© 2025 Your Name. All Rights Reserved.</p>
   </footer>
 
-  <!-- Back to Top -->
-  <button id="backToTop">↑</button>
-
   <script>
-    // Back to top button visibility
-    const backToTop = document.getElementById("backToTop");
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 300) {
-        backToTop.style.display = "block";
+    // Scroll animation
+    const items = document.querySelectorAll("[data-animate]");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add("active");
+        }
+      });
+    }, { threshold: 0.2 });
+    items.forEach(item => observer.observe(item));
+
+    // Dark mode toggle
+    const toggleBtn = document.getElementById("toggleMode");
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      if(document.body.classList.contains("dark-mode")){
+        toggleBtn.textContent = "☀️ Light";
       } else {
-        backToTop.style.display = "none";
+        toggleBtn.textContent = "🌙 Dark";
       }
-    });
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   </script>
 </body>
